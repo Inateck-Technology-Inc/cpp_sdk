@@ -1,0 +1,7 @@
+bin/
+build/
+.vscode/
+*.dSYM
+output/
+.DS_Store
+**/.DS_Store
