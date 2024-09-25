@@ -79,17 +79,17 @@ int main(int argc, char const *argv[])
             std::cout << "software: " << software << std::endl;
         } else if (method == "settingInfo") {
             std::string mac = words[2];
-            const char *settingInfo = inateck_scanner_ble_get_setting_info(mac.c_str());
+            const char *settingInfo = inateck_scanner_ble_get_setting_info(mac.c_str(), DEVICE_TYPE::ST75);
             std::cout << "settingInfo: " << settingInfo << std::endl;
         } else if (method == "closeVolume") {
             std::string mac = words[2];
-            const char *closeVolume = "[{\"area\":\"3\",\"value\":\"0\",\"name\":\"volume\"}]";
-            const char *settingInfo = inateck_scanner_ble_set_setting_info(mac.c_str(), closeVolume);
+            const char *closeVolume = "[{\"flag\":1001,\"value\":0}]";
+            const char *settingInfo = inateck_scanner_ble_set_setting_info(mac.c_str(), closeVolume, DEVICE_TYPE::ST75);
             std::cout << "settingInfo: " << settingInfo << std::endl;
         } else if (method == "openVolume") {
             std::string mac = words[2];
-            const char *openVolume = "[{\"area\":\"3\",\"value\":\"4\",\"name\":\"volume\"}]";
-            const char *settingInfo = inateck_scanner_ble_set_setting_info(mac.c_str(), openVolume);
+            const char *openVolume = "[{\"flag\":1001,\"value\":4}]";
+            const char *settingInfo = inateck_scanner_ble_set_setting_info(mac.c_str(), openVolume, DEVICE_TYPE::ST75);
             std::cout << "settingInfo: " << settingInfo << std::endl;
         } else if (method == "destroy") {
             inateck_scanner_ble_destroy();
