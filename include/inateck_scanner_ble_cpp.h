@@ -6,7 +6,7 @@
 
 extern "C" {
 
-    enum DEVICE_TYPE
+    enum INATECK_DEVICE_TYPE
     {
         None = 0,
         Pro8,
