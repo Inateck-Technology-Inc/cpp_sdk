@@ -2,9 +2,14 @@
 #include "inateck_scanner_ble_cpp.h"
 #include <sstream>
 #include <vector>
-#include <windows.h> // for Sleep function
 
-// lib url:
+#ifdef _WIN32
+#include <windows.h> // for Sleep function
+#else
+#include <unistd.h>
+#endif
+
+// latest lib version:
 // https://github.com/Inateck-Technology-Inc/scanner_lib
 
 void scan_callback(const char *msg)
@@ -78,8 +83,11 @@ int main(int argc, char const *argv[])
     result = inateck_scanner_ble_start_discover();
     std::cout << "result: " << result << std::endl;
 
-    // sleep(10);
+    #ifdef _WIN32
     Sleep(10000); // Sleep function takes milliseconds
+    #else
+    sleep(10);
+    #endif
 
     result = inateck_scanner_ble_stop_discover();
 
@@ -87,11 +95,19 @@ int main(int argc, char const *argv[])
 
     connect(device_id);
 
-    Sleep(5000);
+    #ifdef _WIN32
+    Sleep(5000); // Sleep function takes milliseconds
+    #else
+    sleep(5);
+    #endif
 
     inateck_scanner_ble_bee_or_shake(device_id);
 
+    #ifdef _WIN32
     Sleep(5000); // Sleep function takes milliseconds
+    #else
+    sleep(5);
+    #endif
 
     get_hardware_version(device_id);
 
@@ -101,11 +117,19 @@ int main(int argc, char const *argv[])
 
     quiet(device_id);
 
-    Sleep(5000);
+    #ifdef _WIN32
+    Sleep(5000); // Sleep function takes milliseconds
+    #else
+    sleep(5);
+    #endif
 
     loud(device_id);
 
-    Sleep(5000);
+    #ifdef _WIN32
+    Sleep(5000); // Sleep function takes milliseconds
+    #else
+    sleep(5);
+    #endif
 
     return 0;
 }
