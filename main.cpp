@@ -2,7 +2,7 @@
 #include "inateck_scanner_ble_cpp.h"
 #include <sstream>
 #include <vector>
-#include <unistd.h>
+#include <windows.h> // for Sleep function
 
 // lib url:
 // https://github.com/Inateck-Technology-Inc/scanner_lib
@@ -44,14 +44,14 @@ void get_software_version(const char *device_id)
 
 void get_setting_info(const char *device_id)
 {
-    const char *settingInfo = inateck_scanner_ble_get_setting_info(device_id, DEVICE_TYPE::ST75);
+    const char *settingInfo = inateck_scanner_ble_get_setting_info(device_id, INATECK_DEVICE_TYPE::ST75);
     std::cout << "settingInfo: " << settingInfo << std::endl;
 }
 
 void quiet(const char *device_id)
 {
     const char *closeVolume = "[{\"flag\":1001,\"value\":0}]";
-    const char *settingInfo = inateck_scanner_ble_set_setting_info(device_id, closeVolume, DEVICE_TYPE::ST75);
+    const char *settingInfo = inateck_scanner_ble_set_setting_info(device_id, closeVolume, INATECK_DEVICE_TYPE::ST75);
     inateck_scanner_ble_bee_or_shake(device_id);
     std::cout << "settingInfo: " << settingInfo << std::endl;
 }
@@ -59,7 +59,7 @@ void quiet(const char *device_id)
 void loud(const char *device_id)
 {
     const char *openVolume = "[{\"flag\":1001,\"value\":4}]";
-    const char *settingInfo = inateck_scanner_ble_set_setting_info(device_id, openVolume, DEVICE_TYPE::ST75);
+    const char *settingInfo = inateck_scanner_ble_set_setting_info(device_id, openVolume, INATECK_DEVICE_TYPE::ST75);
     inateck_scanner_ble_bee_or_shake(device_id);
     std::cout << "settingInfo: " << settingInfo << std::endl;
 }
@@ -79,7 +79,7 @@ int main(int argc, char const *argv[])
     std::cout << "result: " << result << std::endl;
 
     // sleep(10);
-    sleep(10);
+    Sleep(10000); // Sleep function takes milliseconds
 
     result = inateck_scanner_ble_stop_discover();
 
@@ -87,11 +87,11 @@ int main(int argc, char const *argv[])
 
     connect(device_id);
 
-    sleep(10);
+    Sleep(5000);
 
     inateck_scanner_ble_bee_or_shake(device_id);
 
-    sleep(5);
+    Sleep(5000); // Sleep function takes milliseconds
 
     get_hardware_version(device_id);
 
@@ -101,11 +101,11 @@ int main(int argc, char const *argv[])
 
     quiet(device_id);
 
-    sleep(5);
+    Sleep(5000);
 
     loud(device_id);
 
-    sleep(5);
+    Sleep(5000);
 
     return 0;
 }
