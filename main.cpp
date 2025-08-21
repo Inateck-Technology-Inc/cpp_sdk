@@ -4,6 +4,9 @@
 #include <vector>
 #include <unistd.h>
 
+// lib url:
+// https://github.com/Inateck-Technology-Inc/scanner_lib
+
 void scan_callback(const char *msg)
 {
     std::cout << msg << std::endl;
